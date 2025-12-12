@@ -1,0 +1,41 @@
+<div class="item-details">
+  <button class="back-btn" (click)="goBack()">← Назад</button>
+
+  <div class="loading" *ngIf="loading">
+    <p>Загрузка фильма...</p>
+  </div>
+
+  <div class="error" *ngIf="error && !loading">
+    <p>{{ error }}</p>
+    <button (click)="loadItem()">🔄 Повторить</button>
+  </div>
+
+  <div *ngIf="item && !loading && !error" class="item-content">
+    <div class="item-header">
+      <img [src]="item.image" [alt]="item.name" class="item-image">
+      <div class="item-info">
+        <h1>{{ item.name }}</h1>
+        <div class="item-meta">
+          <span class="rating">⭐ {{ item.rating }}/5</span>
+          <span class="category">🎭 {{ item.category }}</span>
+          <span class="price">{{ item.price }} ₸</span>
+        </div>
+        <button class="add-to-cart" (click)="addToCart()">
+          🛒 Добавить в корзину
+        </button>
+      </div>
+    </div>
+
+    <div class="item-description">
+      <h3>Описание</h3>
+      <p>{{ item.description }}</p>
+    </div>
+
+    <div class="item-actors" *ngIf="item.actors && item.actors.length > 0">
+      <h3>Актерский состав</h3>
+      <div class="actors-list">
+        <span class="actor" *ngFor="let actor of item.actors">{{ actor }}</span>
+      </div>
+    </div>
+  </div>
+</div>

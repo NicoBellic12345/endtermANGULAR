@@ -1,0 +1,37 @@
+<div class="login">
+  <h2>Вход в EYE MOVIE</h2>
+  
+  <form class="login-form" (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="email">📧 Email:</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        [(ngModel)]="email"
+        placeholder="Введите ваш email"
+        required>
+    </div>
+    
+    <div class="form-group">
+      <label for="password">🔒 Пароль:</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        [(ngModel)]="password"
+        placeholder="Введите ваш пароль"
+        required>
+    </div>
+    
+    <div class="error-message" *ngIf="error">{{ error }}</div>
+    
+    <button type="submit" class="btn" [disabled]="loading">
+      {{ loading ? 'Вход...' : 'Войти в киномир' }}
+    </button>
+
+    <div class="signup-link">
+      Нет аккаунта? <a routerLink="/signup">Зарегистрироваться</a>
+    </div>
+  </form>
+</div>

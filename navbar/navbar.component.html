@@ -1,0 +1,43 @@
+<nav class="navbar">
+  <div class="nav-brand">
+    <a routerLink="/" class="brand-link">
+      <span class="brand-icon">🎬</span>
+      EYE MOVIE
+    </a>
+  </div>
+  
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      🏠 Главная
+    </a>
+    <a routerLink="/about" routerLinkActive="active">
+      ℹ️ О нас
+    </a>
+    <a routerLink="/items" routerLinkActive="active">
+      📺 Фильмы
+    </a>
+    <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+      🛒 Корзина ({{ getCartItemCount() }})
+    </a>
+
+   
+    <div class="auth-links" *ngIf="!user">
+      <a routerLink="/login" routerLinkActive="active">
+        🔐 Вход
+      </a>
+      <a routerLink="/signup" routerLinkActive="active" class="signup-link">
+        📝 Регистрация
+      </a>
+    </div>
+
+ 
+    <div class="user-links" *ngIf="user">
+      <a routerLink="/profile" routerLinkActive="active" class="profile-link">
+        👤 Профиль
+      </a>
+      <a (click)="logout()" class="logout-link">
+        🚪 Выйти
+      </a>
+    </div>
+  </div>
+</nav>

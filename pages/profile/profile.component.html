@@ -1,0 +1,52 @@
+<div class="profile">
+  <div class="profile-card" *ngIf="!loading; else loadingTemplate">
+    <div class="profile-header">
+      <h2>🎬 Мой профиль</h2>
+    </div>
+
+    <div class="profile-info" *ngIf="user; else noUserTemplate">
+      <div class="user-avatar">
+        {{ user.email?.charAt(0).toUpperCase() }}
+      </div>
+      
+      <div class="user-details">
+        <div class="detail-item">
+          <span class="label">📧 Email:</span>
+          <span class="value">{{ user.email }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="label">🆔 ID:</span>
+          <span class="value">{{ user.uid }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="label">✅ Подтвержден:</span>
+          <span class="value">{{ user.emailVerified ? 'Да' : 'Нет' }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="label">📅 Зарегистрирован:</span>
+          <span class="value">{{ user.metadata.creationTime | date:'dd.MM.yyyy' }}</span>
+        </div>
+      </div>
+
+      <button class="logout-btn" (click)="logout()">
+        🚪 Выйти из аккаунта
+      </button>
+    </div>
+
+    <ng-template #noUserTemplate>
+      <div class="no-user">
+        <p>Пользователь не найден</p>
+        <a routerLink="/login" class="login-link">Войти</a>
+      </div>
+    </ng-template>
+  </div>
+
+  <ng-template #loadingTemplate>
+    <div class="loading">
+      <p>Загрузка профиля...</p>
+    </div>
+  </ng-template>
+</div>

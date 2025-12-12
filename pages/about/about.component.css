@@ -1,0 +1,266 @@
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 20px;
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.about-content {
+  max-width: 600px;
+  text-align: left;
+  flex: 1;
+}
+
+.about h2 {
+  color: #ffd700;
+  font-size: 3.5rem;
+  margin-bottom: 30px;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+  position: relative;
+  display: inline-block;
+}
+
+.about h2::after {
+  content: '🎬';
+  position: absolute;
+  right: -70px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  animation: filmSpin 3s infinite;
+}
+
+@keyframes filmSpin {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-50%) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-50%) rotate(270deg);
+  }
+}
+
+.about p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 25px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.about strong {
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.about-image {
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: 20px;
+  bottom: 20px;
+  background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb);
+  border-radius: 25px;
+  z-index: -1;
+  opacity: 0.7;
+  transition: all 0.4s ease;
+}
+
+.about-image:hover::before {
+  top: -15px;
+  left: -15px;
+  right: 15px;
+  bottom: 15px;
+  opacity: 0.9;
+}
+
+.about-image:hover img {
+  transform: translate(-10px, -10px);
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6);
+}
+
+/* Дополнительные секции */
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 60px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.feature-item {
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-10px);
+  border-color: #ffd700;
+  box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.feature-item h3 {
+  color: #ffd700;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.feature-item p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Анимации появления */
+.about-content, .about-image {
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-features {
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .about {
+    padding: 60px 20px;
+    gap: 40px;
+  }
+  
+  .about h2 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+    gap: 40px;
+  }
+  
+  .about-content {
+    text-align: center;
+  }
+  
+  .about h2 {
+    font-size: 2.5rem;
+  }
+  
+  .about h2::after {
+    position: static;
+    display: block;
+    margin-top: 20px;
+    transform: none;
+  }
+  
+  .about-image {
+    max-width: 400px;
+  }
+  
+  .about-features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    padding: 30px 15px;
+  }
+  
+  .about h2 {
+    font-size: 2rem;
+  }
+  
+  .about p {
+    font-size: 1.1rem;
+  }
+  
+  .about-image {
+    max-width: 100%;
+  }
+  
+  .feature-item {
+    padding: 25px 20px;
+  }
+  
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+}
+
+/* Эффект для текста */
+.about-content p {
+  position: relative;
+  padding-left: 20px;
+}
+
+.about-content p::before {
+  content: '»';
+  position: absolute;
+  left: 0;
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
