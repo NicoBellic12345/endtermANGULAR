@@ -3,11 +3,9 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Mock database - Movies data
 const movies = [
   {
     id: 1,
@@ -158,10 +156,50 @@ const movies = [
     category: 'romance',
     actors: ['Райан Гослинг', 'Эмма Стоун', 'Джон Ледженд', 'Розмари ДеУитт'],
     rating: 4.7
-  }
+  },
+  {
+  id: 16,
+  name: 'Дюна: Часть вторая',
+  description: 'Продолжение эпической саги о Пол Атрейдесе, который объединяется с фрименами Арракиса в борьбе против Империи',
+  price: 1200,
+  image: 'https://avatars.mds.yandex.net/i?id=6fa9a89b111ff28b57e5b38093afc5ad_l-10280838-images-thumbs&n=13',
+  category: 'sci-fi',
+  actors: ['Тимоти Шаламе', 'Зендея', 'Ребекка Фергюсон', 'Оскар Айзек'],
+  rating: 4.9
+},
+{
+  id: 17,
+  name: 'Оппенгеймер',
+  description: 'Биографический триллер о жизни физика Роберта Оппенгеймера и его роли в создании атомной бомбы',
+  price: 1150,
+  image: 'https://avatars.mds.yandex.net/i?id=7ff2078c71f124a12ba9ae4a0c386359_l-9138088-images-thumbs&n=13',
+  category: 'biography',
+  actors: ['Киллиан Мерфи', 'Эмили Блант', 'Мэтт Дэймон', 'Роберт Дауни мл.'],
+  rating: 4.8
+},
+{
+  id: 18,
+  name: 'Джон Уик 4',
+  description: 'Легендарный киллер Джон Уик сражается против могущественного клана, чтобы обрести свободу',
+  price: 1050,
+  image: 'https://avatars.mds.yandex.net/i?id=6902d1505a80e12ea09b8bc9e9d5f9ac_l-8827467-images-thumbs&n=13',
+  category: 'action',
+  actors: ['Киану Ривз', 'Донни Йен', 'Билл Скарсгард', 'Лоренс Фишберн'],
+  rating: 4.6
+},
+{
+  id: 19,
+  name: 'Бедняги',
+  description: 'Экранизация мюзикла о жизни обитателей парижских трущоб в XIX веке и их борьбе за достоинство и свободу',
+  price: 950,
+  image: 'https://avatars.mds.yandex.net/i?id=baec0c3d9963263ffdb091a66b384e55_l-5223992-images-thumbs&n=13',
+  category: 'musical',
+  actors: ['Хью Джекман', 'Рассел Кроу', 'Энн Хэтэуэй', 'Аманда Сайфред'],
+  rating: 4.5
+},
 ];
 
-// Categories data
+
 const categories = [
   { id: 'all', name: 'Все фильмы' },
   { id: 'action', name: 'Боевики' },
@@ -173,14 +211,12 @@ const categories = [
   { id: 'romance', name: 'Мелодрамы' }
 ];
 
-// API Routes
 
-// GET /api/movies - Get all movies with optional search query
 app.get('/api/movies', (req, res) => {
   const { q, category } = req.query;
   let filteredMovies = [...movies];
 
-  // Filter by search query
+
   if (q) {
     const query = q.toLowerCase();
     filteredMovies = filteredMovies.filter(movie =>
@@ -191,7 +227,6 @@ app.get('/api/movies', (req, res) => {
     );
   }
 
-  // Filter by category
   if (category && category !== 'all') {
     filteredMovies = filteredMovies.filter(movie => 
       movie.category === category
@@ -205,7 +240,6 @@ app.get('/api/movies', (req, res) => {
   });
 });
 
-// GET /api/movies/:id - Get single movie by ID
 app.get('/api/movies/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const movie = movies.find(m => m.id === id);
@@ -223,7 +257,6 @@ app.get('/api/movies/:id', (req, res) => {
   });
 });
 
-// GET /api/categories - Get all categories
 app.get('/api/categories', (req, res) => {
   res.json({
     success: true,
@@ -231,11 +264,9 @@ app.get('/api/categories', (req, res) => {
   });
 });
 
-// POST /api/movies - Add new movie
 app.post('/api/movies', (req, res) => {
   const { name, description, price, image, category, actors, rating } = req.body;
 
-  // Validation
   if (!name || !price) {
     return res.status(400).json({
       success: false,
@@ -263,7 +294,6 @@ app.post('/api/movies', (req, res) => {
   });
 });
 
-// PUT /api/movies/:id - Update movie
 app.put('/api/movies/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const movieIndex = movies.findIndex(m => m.id === id);
@@ -278,7 +308,7 @@ app.put('/api/movies/:id', (req, res) => {
   const updatedMovie = {
     ...movies[movieIndex],
     ...req.body,
-    id // Ensure ID doesn't change
+    id 
   };
 
   movies[movieIndex] = updatedMovie;
@@ -290,7 +320,7 @@ app.put('/api/movies/:id', (req, res) => {
   });
 });
 
-// DELETE /api/movies/:id - Delete movie
+
 app.delete('/api/movies/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const movieIndex = movies.findIndex(m => m.id === id);
@@ -311,7 +341,7 @@ app.delete('/api/movies/:id', (req, res) => {
   });
 });
 
-// Helper function to get default image
+
 function getDefaultImage(category) {
   const defaultImages = {
     action: 'https://images.unsplash.com/photo-1489599809505-7c8e1c869cc2?w=300&h=450&fit=crop',
@@ -327,7 +357,7 @@ function getDefaultImage(category) {
   return defaultImages[category] || defaultImages['action'];
 }
 
-// Health check endpoint
+
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
@@ -336,7 +366,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Error handling middleware
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -345,7 +375,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
+
 app.listen(PORT, () => {
   console.log(`🎬 EYE MOVIE API Server running on http://localhost:${PORT}`);
   console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);

@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app-shell",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://fonts.gstatic.com/**"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-meals-cache",
+      "urls": [
+        "https://www.themealdb.com/api/json/v1/1/search.php**",
+        "https://www.themealdb.com/api/json/v1/1/filter.php**",
+        "https://www.themealdb.com/api/json/v1/1/lookup.php**"
+      ],
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "1d",
+        "strategy": "performance",
+        "timeout": "5s"
+      }
+    },
+    {
+      "name": "api-static",
+      "urls": [
+        "https://www.themealdb.com/api/json/v1/1/categories.php",
+        "https://www.themealdb.com/api/json/v1/1/list.php?a=list",
+        "https://www.themealdb.com/api/json/v1/1/list.php?c=list"
+      ],
+      "cacheConfig": {
+        "maxSize": 10,
+        "maxAge": "7d",
+        "strategy": "performance"
+      }
+    }
+  ]
+}
