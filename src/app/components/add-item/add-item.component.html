@@ -1,0 +1,96 @@
+<div class="add-item-form">
+  <h3>🎬 Добавить новый фильм</h3>
+  
+  <form (ngSubmit)="addItem()" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="name">🎭 Название фильма:</label>
+      <input 
+        type="text" 
+        id="name"
+        [(ngModel)]="newItem.name" 
+        name="name" 
+        placeholder="Введите название фильма" 
+        required
+        class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label for="price">💰 Стоимость аренды:</label>
+      <input 
+        type="number" 
+        id="price"
+        [(ngModel)]="newItem.price" 
+        name="price" 
+        placeholder="Стоимость аренды в тенге" 
+        min="1"
+        required
+        class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label for="category">🎪 Жанр:</label>
+      <select id="category" [(ngModel)]="newItem.category" name="category" class="form-select">
+        <option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="rating">⭐ Рейтинг:</label>
+      <input 
+        type="number" 
+        id="rating"
+        [(ngModel)]="newItem.rating" 
+        name="rating" 
+        placeholder="Рейтинг от 0 до 5" 
+        min="0" 
+        max="5" 
+        step="0.1"
+        required
+        class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label for="description">📖 Описание сюжета:</label>
+      <textarea 
+        id="description"
+        [(ngModel)]="newItem.description" 
+        name="description" 
+        placeholder="Опишите сюжет фильма, режиссера, основные моменты..."
+        class="form-textarea"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>🌟 Актеры:</label>
+      <div *ngFor="let ingredient of newItem.actors; let i = index" class="ingredient-row">
+        <input 
+          type="text" 
+          [(ngModel)]="newItem.actors[i]" 
+          [name]="'ingredient' + i"
+          placeholder="Имя актера"
+          class="form-input">
+        <button type="button" (click)="removeIngredient(i)" class="remove-ingredient">×</button>
+      </div>
+      <button type="button" (click)="addIngredient()" class="add-ingredient">+ Добавить актера</button>
+    </div>
+
+    <div class="form-group">
+      <label>🎞️ Постер фильма:</label>
+      <input 
+        type="file" 
+        (change)="onImageSelected($event)" 
+        accept="image/*"
+        class="form-file">
+    </div>
+
+    <div *ngIf="previewImage" class="preview">
+      <img [src]="previewImage" alt="Предпросмотр постера" class="preview-img">
+    </div>
+
+    <button 
+      type="submit" 
+      [disabled]="isSubmitting"
+      class="submit-btn">
+      {{ isSubmitting ? '🎬 Добавляем фильм...' : '🎬 Добавить фильм' }}
+    </button>
+  </form>
+</div>

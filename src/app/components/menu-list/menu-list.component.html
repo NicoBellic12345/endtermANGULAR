@@ -1,0 +1,31 @@
+<div class="items-list">
+  <div class="search-section">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery" 
+      (input)="onSearch()"
+      placeholder="Поиск фильмов..." 
+      class="search-input">
+    <button (click)="clearSearch()" class="clear-btn">×</button>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <p>Загрузка меню...</p>
+  </div>
+
+  <div class="error" *ngIf="error && !loading">
+    <p>{{ error }}</p>
+    <button (click)="loadItems()">Повторить</button>
+  </div>
+
+  <div class="items-grid" *ngIf="!loading && !error">
+    <app-item-card 
+      *ngFor="let item of items" 
+      [item]="item">
+    </app-item-card>
+    
+    <div class="no-results" *ngIf="items.length === 0">
+      <p>Ничего не найдено</p>
+    </div>
+  </div>
+</div>

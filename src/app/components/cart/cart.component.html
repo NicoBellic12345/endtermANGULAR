@@ -1,0 +1,57 @@
+<div class="cart">
+  <div class="cart-header">
+    <h1>🎬 Моя корзина</h1>
+    <button *ngIf="menuService.cartItems.value.length > 0" 
+            (click)="clearCart()" 
+            class="clear-cart-btn"
+            title="Очистить всю корзину">
+      Очистить корзину
+    </button>
+  </div>
+
+  <!-- Пустая корзина -->
+  <div *ngIf="menuService.cartItems.value.length === 0" class="empty-cart">
+    <p>🎭 Корзина пуста</p>
+    <a routerLink="/items" class="continue-shopping">Перейти к фильмам</a>
+  </div>
+
+  <!-- Корзина с товарами -->
+  <div *ngIf="menuService.cartItems.value.length > 0" class="cart-items">
+    <div *ngFor="let cartItem of menuService.cartItems.value" class="cart-item">
+      <img [src]="cartItem.menuItem.image" 
+           [alt]="cartItem.menuItem.name" 
+           class="item-image">
+      
+      <div class="item-details">
+        <h3>{{ cartItem.menuItem.name }}</h3>
+        <p class="price">{{ cartItem.menuItem.price }} ₸ × {{ cartItem.quantity }}</p>
+      </div>
+
+      <div class="quantity-controls">
+        <button (click)="updateQuantity(cartItem.menuItem.id, cartItem.quantity - 1)"
+                [disabled]="cartItem.quantity <= 1">-</button>
+        <span>{{ cartItem.quantity }}</span>
+        <button (click)="updateQuantity(cartItem.menuItem.id, cartItem.quantity + 1)">+</button>
+      </div>
+
+      <div class="item-total">
+        {{ cartItem.menuItem.price * cartItem.quantity }} ₸
+      </div>
+
+      <button (click)="removeFromCart(cartItem.menuItem.id)" 
+              class="remove-btn"
+              title="Удалить из корзины">×</button>
+    </div>
+
+    <!-- Итого -->
+    <div class="cart-total">
+      <h2>💰 Итого: {{ menuService.getCartTotal() }} ₸</h2>
+    </div>
+
+    <!-- Действия -->
+    <div class="cart-actions">
+      <a routerLink="/items" class="continue-shopping">🎭 Продолжить выбор фильмов</a>
+      <button class="checkout-btn" (click)="checkout()">🎟️ Оформить аренду</button>
+    </div>
+  </div>
+</div>

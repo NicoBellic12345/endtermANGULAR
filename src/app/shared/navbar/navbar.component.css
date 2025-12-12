@@ -1,0 +1,103 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  color: white;
+}
+
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.brand-link {
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-icon {
+  font-size: 1.8rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #cccccc;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  background: #333;
+  color: #ffffff;
+}
+
+.nav-links a.active {
+  background: #007bff;
+  color: white;
+}
+
+.cart-link {
+  background: #28a745;
+  color: white !important;
+}
+
+.cart-link:hover {
+  background: #218838 !important;
+}
+
+.auth-links, .user-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.signup-link {
+  background: #dc3545;
+  color: white !important;
+}
+
+.signup-link:hover {
+  background: #c82333 !important;
+}
+
+.profile-link {
+  color: #17a2b8 !important;
+}
+
+.logout-link {
+  color: #ff6b6b !important;
+  cursor: pointer;
+}
+
+.logout-link:hover {
+  color: #ff4757 !important;
+  background: transparent !important;
+  text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
